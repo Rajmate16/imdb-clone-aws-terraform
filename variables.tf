@@ -1,9 +1,3 @@
-variable "aws_region" {
-  description = "AWS region to deploy resources"
-  type        = string
-  default     = "us-east-1"
-}
-
 variable "project_name" {
   description = "Name of the project"
   type        = string
@@ -16,6 +10,13 @@ variable "environment" {
   default     = "dev"
 }
 
+variable "aws_region" {
+  description = "AWS region to deploy resources"
+  type        = string
+  default     = "us-east-1"
+}
+
+# VPC variables
 variable "vpc_cidr" {
   description = "CIDR block for the VPC"
   type        = string
@@ -28,6 +29,7 @@ variable "availability_zones" {
   default     = ["us-east-1a", "us-east-1b", "us-east-1c"]
 }
 
+# Database variables
 variable "db_username" {
   description = "Username for the database"
   type        = string
@@ -53,20 +55,44 @@ variable "db_instance_class" {
   default     = "db.t3.micro"
 }
 
-variable "eb_instance_type" {
+variable "db_allocated_storage" {
+  description = "Allocated storage for the database in GB"
+  type        = number
+  default     = 20
+}
+
+# Elastic Beanstalk variables
+variable "beanstalk_instance_type" {
   description = "Instance type for Elastic Beanstalk"
   type        = string
   default     = "t3.micro"
 }
 
-variable "frontend_repository" {
-  description = "GitHub repository URL for the frontend code"
-  type        = string
-  default     = "https://github.com/cybagedevops/imdb-clone-frontend"
-}
-
 variable "backend_repository" {
   description = "GitHub repository URL for the backend code"
   type        = string
-  default     = "https://github.com/cybagedevops/imdb-clone-backend"
+}
+
+variable "ssl_certificate_arn" {
+  description = "ARN of the SSL certificate for HTTPS"
+  type        = string
+  default     = ""
+}
+
+# Amplify variables
+variable "frontend_repository" {
+  description = "GitHub repository URL for the frontend code"
+  type        = string
+}
+
+variable "github_access_token" {
+  description = "GitHub personal access token for Amplify to access the repository"
+  type        = string
+  sensitive   = true
+}
+
+variable "domain_name" {
+  description = "Domain name for the Amplify app"
+  type        = string
+  default     = ""
 }
